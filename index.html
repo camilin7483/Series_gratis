@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity Falls - Temporadas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #ffcc00;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .video-container {
+            width: 60%;
+        }
+        video {
+            width: 100%;
+            border-radius: 10px;
+            border: 2px solid #ffcc00;
+        }
+        .lista-episodios {
+            width: 30%;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        select {
+            padding: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            padding: 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #555;
+            transition: 0.3s;
+        }
+        li:hover {
+            background-color: #444;
+            color: #ffcc00;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #111;
+            color: #ffcc00;
+            border-top: 2px solid #ffcc00;
+        }
+        a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Gravity Falls - Selección de Temporadas</h1>
+
+    <label for="temporada">Selecciona una temporada:</label>
+    <select id="temporada">
+        <option value="1">Primera Temporada</option>
+        <option value="2">Segunda Temporada</option>
+    </select>
+
+    <div class="container">
+        <div class="lista-episodios">
+            <h2>Selecciona un episodio</h2>
+            <ul id="lista">
+                <!-- Se generarán los episodios con JavaScript -->
+            </ul>
+        </div>
+
+        <div class="video-container">
+            <video id="videoPlayer" controls>
+                <source id="videoSource" src="01x1 - Gravity Falls.mp4" type="video/mp4">
+                Tu navegador no soporta videos.
+            </video>
+        </div>
+    </div>
+
+    <footer>
+        Contacto: <a href="mailto:cuentacamilo48@gmail.com">cuentacamilo48@gmail.com</a>
+    </footer>
+
+    <script>
+        const lista = document.getElementById("lista");
+        const videoPlayer = document.getElementById("videoPlayer");
+        const videoSource = document.getElementById("videoSource");
+        const temporadaSelector = document.getElementById("temporada");
+
+        function generarEpisodios(temporada) {
+            lista.innerHTML = ""; // Limpiar la lista
+            for (let i = 1; i <= 20; i++) {
+                let num = i.toString().padStart(2, '0'); // Asegurar formato 01, 02...
+                let archivo = `${num}x${temporada} - Gravity Falls.mp4`;
+                let li = document.createElement("li");
+                li.textContent = `Episodio ${i}`;
+                li.onclick = () => {
+                    videoSource.src = archivo;
+                    videoPlayer.load();
+                    videoPlayer.play();
+                };
+                lista.appendChild(li);
+            }
+        }
+
+        // Cargar la primera temporada por defecto
+        generarEpisodios(1);
+
+        // Cambiar episodios al seleccionar otra temporada
+        temporadaSelector.addEventListener("change", function () {
+            generarEpisodios(this.value);
+        });
+    </script>
+
+</body>
+</html>
